@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>My Valentine ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  font-family:"Poppins",sans-serif;
+  background: linear-gradient(135deg,#ff4d6d,#ff8fab);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+}
+
+/* MAIN BOX */
+.container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+
+/* PHOTO */
+.gallery img{
+  width:180px;
+  height:180px;
+  border-radius:20px;
+  object-fit:cover;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+h1{
+  font-size:38px;
+  margin:0;
+}
+
+/* COUNTDOWN */
+#countdown{
+  font-size:18px;
+}
+
+/* BUTTON ROW */
+.buttons{
+  display:flex;
+  gap:30px;
+  margin-top:10px;
+}
+
+/* BUTTONS */
+.btn{
+  padding:14px 40px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#yes{
+  background:white;
+  color:#ff4d6d;
+}
+
+#yes:hover{
+  transform:scale(1.1);
+}
+
+#no{
+  background:black;
+  color:white;
+  position:relative;
+}
+
+/* SUCCESS MESSAGE */
+.message{
+  font-size:28px;
+  margin-top:10px;
+  animation:pop .5s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="If_You_Love_Her.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+  <!-- PHOTO -->
+  <div class="gallery">
+    <img src="img.jpeg">
+  </div>
+
+  <!-- TITLE -->
+  <h1>Will you be my Valentine, Madam Jii? 💖</h1>
+
+  <!-- COUNTDOWN -->
+  <div id="countdown"></div>
+
+  <!-- BUTTONS -->
+  <div class="buttons">
+    <button id="yes" class="btn">Yes 😍</button>
+    <button id="no" class="btn">No 😏</button>
+  </div>
+
+  <div id="result"></div>
+
+</div>
+
+<script>
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const result = document.getElementById("result");
+const music = document.getElementById("music");
+
+
+// 🔥 MUSIC STARTS ON FIRST CLICK ANYWHERE (browser safe)
+function startMusic(){
+  music.play();
+  document.removeEventListener("click", startMusic);
+}
+document.addEventListener("click", startMusic);
+
+
+// 😈 NO button runs away
+noBtn.addEventListener("mouseover", ()=>{
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*80+"vw";
+  noBtn.style.top=Math.random()*80+"vh";
+});
+
+
+// ❤️ YES button action
+yesBtn.addEventListener("click", ()=>{
+
+  result.innerHTML =
+  "<div class='message'>Yayyyy❤️ Just Enjoy The Song!🌹✨</div>";
+
+  yesBtn.style.display="none";
+  noBtn.style.display="none";
+
+  // hearts rain
+  for(let i=0;i<40;i++){
+    let heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.style.position="absolute";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.top="-10px";
+    heart.style.fontSize="24px";
+    heart.style.animation="fall 3s linear forwards";
+    document.body.appendChild(heart);
+  }
+});
+
+
+// ⏳ COUNTDOWN
+const target = new Date("Feb 14, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+  const now=new Date().getTime();
+  const gap=target-now;
+
+  const d=Math.floor(gap/(1000*60*60*24));
+  const h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  const m=Math.floor((gap%(1000*60*60))/(1000*60));
+
+  document.getElementById("countdown").innerText =
+  `⏳ ${d}d ${h}h ${m}m left ❤️`;
+},1000);
+
+</script>
+
+</body>
+</html>
