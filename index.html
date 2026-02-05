@@ -147,12 +147,20 @@ document.addEventListener("click", startMusic);
 
 
 // 😈 NO button runs away
-noBtn.addEventListener("mouseover", ()=>{
-  noBtn.style.position="absolute";
-  noBtn.style.left=Math.random()*80+"vw";
-  noBtn.style.top=Math.random()*80+"vh";
-});
+function moveNoButton() {
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*80 + "vw";
+  noBtn.style.top  = Math.random()*80 + "vh";
+}
 
+// Desktop hover
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// Mobile touch
+noBtn.addEventListener("touchstart", moveNoButton);
+
+// Backup click
+noBtn.addEventListener("click", moveNoButton);
 
 // ❤️ YES button action
 yesBtn.addEventListener("click", ()=>{
@@ -197,3 +205,4 @@ setInterval(()=>{
 </body>
 
 </html>
+
